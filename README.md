@@ -6,23 +6,33 @@
 ## Installing
 
 ```shell
-$ composer require shawn/ding-exception -vvv
+$ composer require shawn/ding-exception
 ```
 
 ## Usage
 
-TODO
+ file app/Exceptions/Handler.php
 
 ## Contributing
 
-You can contribute in one of three ways:
+```shell
+use Shawn\DingException\DingException;
 
-1. File bug reports using the [issue tracker](https://github.com/shawn/ding-exception/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/shawn/ding-exception/issues).
-3. Contribute new features or update the wiki.
+class Handler extends ExceptionHandler
+{
+  // ...
+  
+    public function report(Exception $exception)
+    {
+        // $robot 选择机器人进行异常通知
+        // $is_trace 是否通知详细的trace信息
+        DingException::notifyException($exception,$robot,$is_trace);
+        parent::report($exception);
+    }
 
-_The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
-
-## License
-
-MIT
+}
+```
+## 安装成功后执行
+```shell
+php artisan vendor:publish --provider="DingNotice\DingNoticeServiceProvider"
+```
