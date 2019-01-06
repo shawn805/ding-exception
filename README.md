@@ -6,7 +6,7 @@
 ## Installing
 
 ```shell
-$ composer require shawn/ding-exception
+$ composer require shawn805/ding-exception
 ```
 
 ## Usage
