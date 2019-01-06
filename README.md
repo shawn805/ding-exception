@@ -24,7 +24,7 @@ class Handler extends ExceptionHandler
   
     public function report(Exception $exception)
     {
-        // $robot 选择机器人进行异常通知
+        // $robot 选择哪台机器人进行异常通知
         // $is_trace 是否通知详细的trace信息
         DingException::notifyException($exception,$robot,$is_trace);
         parent::report($exception);
