@@ -1,0 +1,21 @@
+{
+    "name": "shawn805/ding-exception",
+    "description": "Laravel exception notify",
+    "keywords": ["laravel","laravel exception","ding exception","ding notice"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0",
+        "wangju/ding-notice": "^1.0"
+    },
+    "authors": [
+        {
+          "name": "shawn805",
+          "email": "shawn805@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Shawn\\DingException\\": "src/"
+        }
+    }
+}
