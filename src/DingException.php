@@ -20,6 +20,4 @@ class DingException
         dispatch(new DingTalkJob($exceptionInfo));
     }
 
-    //todo 如果不是Laravel框架（或者laravel不使用队列通知）
-
 }

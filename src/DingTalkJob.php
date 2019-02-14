@@ -49,7 +49,7 @@ class DingTalkJob implements ShouldQueue
         try {
             $dingConfig = config('ding.' . $this->exceptionInfo['robot']);
             $key = md5($this->exceptionInfo['message'] . $this->exceptionInfo['line']);
-            if (!(Cache::get($key) >= ($dingConfig['num'] ?? 3))) {
+            if (!Cache::has($key)) {
                 $ding = new DingTalk([
                     "default" => [
                         'enabled' => $dingConfig['enabled'],
@@ -57,8 +57,8 @@ class DingTalkJob implements ShouldQueue
                         'timeout' => $dingConfig['timeout'],
                     ]
                 ]);
-                $res = $ding->markdown($this->exceptionInfo['message'], implode(PHP_EOL, $message));
-                Cache::increment($key);
+                $ding->markdown($this->exceptionInfo['message'], implode(PHP_EOL, $message));
+                Cache::put($key, 1, 30);
             }
         } catch (\Exception $exception) {
             Log::info($exception->getMessage());
