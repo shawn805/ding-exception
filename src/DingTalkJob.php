@@ -57,9 +57,10 @@ class DingTalkJob implements ShouldQueue
                         'timeout' => $dingConfig['timeout'],
                     ]
                 ]);
-                $ding->markdown($this->exceptionInfo['message'], implode(PHP_EOL, $message));
+                $title = $this->exceptionInfo['message'] ? $this->exceptionInfo['message'] : '异常通知';
+                $res = $ding->markdown($title, implode(PHP_EOL, $message));
                 Cache::put($key, 1, 30);
-                Log::info("ding-send:" . json_encode($dingConfig) . $ding);
+                Log::info("ding-send:{$res}:message-config:" . json_encode($dingConfig));
             }
         } catch (\Exception $exception) {
             Log::info($exception->getMessage());
