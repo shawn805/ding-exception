@@ -43,7 +43,7 @@ class DingTalkJob implements ShouldQueue
             '- 文件：' . $this->exceptionInfo['file'],
             '- 行数：' . $this->exceptionInfo['line'],
         ];
-        if($this->exceptionInfo['is_trace']){
+        if ($this->exceptionInfo['is_trace']) {
             $message[] = '- Exception Trace：' . $this->exceptionInfo['trace'];
         }
         try {
@@ -59,6 +59,7 @@ class DingTalkJob implements ShouldQueue
                 ]);
                 $ding->markdown($this->exceptionInfo['message'], implode(PHP_EOL, $message));
                 Cache::put($key, 1, 30);
+                Log::info("ding-send:" . json_encode($dingConfig) . $ding);
             }
         } catch (\Exception $exception) {
             Log::info($exception->getMessage());
